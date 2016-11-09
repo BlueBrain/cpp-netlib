@@ -4,12 +4,13 @@
 #          http://www.boost.org/LICENSE_1_0.txt)
 
 cmake_minimum_required(VERSION 2.8)
-project(CPP-NETLIB)
+cmake_policy(SET CMP0048 NEW) # The project() command manages VERSION variables.
+project(CPP-NETLIB VERSION 0.11.1)
 
-option( CPP-NETLIB_BUILD_SHARED_LIBS "Build cpp-netlib as shared libraries." OFF )
-option( CPP-NETLIB_BUILD_TESTS "Build the cpp-netlib project tests." ON)
-option( CPP-NETLIB_BUILD_EXPERIMENTS "Build the cpp-netlib project experiments." ON)
-option( CPP-NETLIB_BUILD_EXAMPLES "Build the cpp-netlib project examples." ON)
+option( CPP-NETLIB_BUILD_SHARED_LIBS "Build cpp-netlib as shared libraries." ON )
+option( CPP-NETLIB_BUILD_TESTS "Build the cpp-netlib project tests." OFF)
+option( CPP-NETLIB_BUILD_EXPERIMENTS "Build the cpp-netlib project experiments." OFF)
+option( CPP-NETLIB_BUILD_EXAMPLES "Build the cpp-netlib project examples." OFF)
 option( CPP-NETLIB_ENABLE_HTTPS "Build cpp-netlib with support for https if OpenSSL is found." ON)
 
 include(GNUInstallDirs)

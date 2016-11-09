@@ -62,6 +62,9 @@ struct sync_server_base : server_storage_base, socket_options_base {
     if (!listening_) start_listening();
   }
 
+  const string_type& address() const { return address_; }
+  const string_type& port() const { return port_; }
+
  private:
   Handler& handler_;
   string_type address_, port_;
@@ -86,7 +89,7 @@ struct sync_server_base : server_storage_base, socket_options_base {
     using boost::asio::ip::tcp;
     system::error_code error;
     tcp::resolver resolver(service_);
-    tcp::resolver::query query(address_, port_);
+    tcp::resolver::query query(tcp::v4(), address_, port_);
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query, error);
     if (error) {
       BOOST_NETWORK_MESSAGE("Error resolving address: " << address_ << ':'
@@ -109,6 +112,8 @@ struct sync_server_base : server_storage_base, socket_options_base {
                             << error << '\'');
       boost::throw_exception(std::runtime_error("Error binding to socket."));
     }
+    address_ = acceptor_.local_endpoint().address().to_v4().to_string();
+    port_ = std::to_string(acceptor_.local_endpoint().port());
     acceptor_.listen(tcp::socket::max_connections, error);
     if (error) {
       BOOST_NETWORK_MESSAGE("Error listening on socket: "
