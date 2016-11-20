@@ -33,7 +33,7 @@ struct socket_options_base {
         receive_low_watermark(options.receive_low_watermark()),
         send_low_watermark(options.send_low_watermark()),
         non_blocking_io(options.non_blocking_io()),
-        linger(options.linger(), options.linger_timeout()) {}
+        linger(options.linger(), int(options.linger_timeout())) {}
 
   void acceptor_options(boost::asio::ip::tcp::acceptor &acceptor) {
     acceptor.set_option(acceptor_reuse_address);
