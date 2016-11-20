@@ -7,7 +7,11 @@ cmake_minimum_required(VERSION 2.8)
 cmake_policy(SET CMP0048 NEW) # The project() command manages VERSION variables.
 project(CPP-NETLIB VERSION 0.11.1)
 
-option( CPP-NETLIB_BUILD_SHARED_LIBS "Build cpp-netlib as shared libraries." ON )
+if(MSVC)
+  option( CPP-NETLIB_BUILD_SHARED_LIBS "Build cpp-netlib as shared libraries." OFF)
+else()
+  option( CPP-NETLIB_BUILD_SHARED_LIBS "Build cpp-netlib as shared libraries." ON)
+endif()
 option( CPP-NETLIB_BUILD_TESTS "Build the cpp-netlib project tests." OFF)
 option( CPP-NETLIB_BUILD_EXPERIMENTS "Build the cpp-netlib project experiments." OFF)
 option( CPP-NETLIB_BUILD_EXAMPLES "Build the cpp-netlib project examples." OFF)
